@@ -1,0 +1,49 @@
+/* set width to be just 75% of page */
+.w75 {
+    width: 75%;
+    /* text-align: center; */
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+    justify-content: center;
+    padding: 2vh;
+   
+}
+
+#start-button {
+    background-color: #a3f1ee;
+    color: rgb(37, 37, 37);
+    border-color: rgb(37, 37, 37);
+    border-radius: 20px;
+    width: 20vh;
+    font-size: 1.4em;
+    padding: 2vh;
+    margin: 2vh;
+    /* justify-content: flex-end; */
+    /* align-self: center; */
+}
+
+p {
+    padding: 0.25vh;
+    font-size: 1.25em;
+    /* justify-content: space-around; */
+    /* width: 40%; */
+    /* align-content: center;    */
+}
+
+#start-button:hover {
+    box-shadow: 2px 2px #86b9e9;
+    font-weight: bolder;
+
+}
