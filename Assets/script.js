@@ -74,14 +74,11 @@ function startQuiz() {
   invitep.textContent = "  ";
   startButton.setAttribute("style", "display: none");
 
-  // start timer and set else/if rules
-
-
-
   //syle newly created variables
   multipleChoice.setAttribute("style", "display: flex;");
 
-    var timeLeft = 10;
+  // start timer and set else/if rules
+    var timeLeft = 15;
     var timerInterval = setInterval(function() {
       if (timeLeft > 1) {
         timerDisplay.innerHTML = timeLeft + " seconds remaining";
@@ -91,7 +88,7 @@ function startQuiz() {
           timeLeft--;
       } else {
             clearInterval(timerInterval);
-            timerDisplay.innerHTML = "Time is up. The assessent has now ended.";
+            timerDisplay.innerHTML = "Time is up. The assessment is now concluded.";
       }
     }, 1000);//end set Interval
 
@@ -108,6 +105,8 @@ function startQuiz() {
     
     // create count variable
     var score = 0;
+    var correct = 0;
+    var incorrect = 0;
     var randomQuestion = QandA.question.length;
     var randomLi1 = QandA.answer.length;
     var randomLi2 = QandA.option1.length;
@@ -117,11 +116,11 @@ function startQuiz() {
     console.log(randomQuestion + " " +  randomLi1 + " " +  randomLi2 + " " +  randomLi3 + " " + randomLi4);
 
     // start questions
-    for (var i = 0; i <randomQuestion.length; i++) {
+    for (var i = 0; i <= randomQuestion.length; i++) {
 
         var index = QandA.question[i];
         randomQuestion--;
-        questionDisplay.textContent = QandA.question[index];
+        questionDisplay.innerHTML = QandA.question[index];
       
         if (i < randomLi1.length) {
           var index = QandA.answer[i];
@@ -142,38 +141,31 @@ function startQuiz() {
           var index = QandA.option3[i];
           random--;
           li3.textContent = QandA.option3[index];
-    }
+        } else {
+          return;
+        }
 
     }    
             
-            
-            
-            
-            // var indexOpt1 = QandA.option1[i];
-        //   opt1.textContent = QandA.option1[indexOpt1];
-        // var indexOpt2 = QandA.option2[i];
-        //   opt1.textContent = QandA.option2[indexOpt2];
-        // var indexOpt3 = QandA.option3[i];
-        //   opt1.textContent = QandA.option3[indexOpt2];
-        // var indexOpt4 = QandA.option4[i];
-        //   opt1.textContent = QandA.option3[indexOpt3];
-    //   } else {
-    //     return;  
-    // }
-
     // add event listener to the multiple choice options
-//     choices.addEventListener("click", function(event) {
-//       var element = event.target;
+    container.addEventListener("click", function(event) {
+      var element = event.target;
 //       //check if answer is correct
-//           if (element.matches(this.answer)) {
-//             score++;
-//             localStorage.setItem("correct", correct);
-//             choices.setAttribute("style", "border-bottom: 2px red");
-//             score.textContent = "CORRECT";
-//             score.setAttribute("Style", "font-size: 3em, opacity: 50%")
-//           } else {
-//             return;
-//           }  //else return
-//         });  //end event listener
+          if (element.matches(this.answer)) {
+            score++;
+            localStorage.setItem("correct", correct);
+            correct++;
+            container.setAttribute("style", "border-bottom: 2px red");
+            container.textContent = "CORRECT";
+            container.setAttribute("Style", "font-size: 3em, opacity: 50%")
+          } else if (!element.matches(this.answer)) {
+            localStorage.setItem("incorrect", incorrect);
+            incorrect++;
+            container.setAttribute("style", "border-bottom: 2px red");
+            container.textContent = "INCORRECT";
+            container.setAttribute("Style", "font-size: 3em, opacity: 50%")
+            return;
+          }  //else return
+        });  //end event listener
 //       };   //end for loop
 }; //end loop
