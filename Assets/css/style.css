@@ -4,9 +4,10 @@
     /* text-align: center; */
 }
 
-header {
+.dflex {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     /* align-content: center; */
     align-items: center;
     justify-content: center;
@@ -37,13 +38,17 @@ h1 {
 p {
     padding: 0.25vh;
     font-size: 1.25em;
-    /* justify-content: space-around; */
-    /* width: 40%; */
-    /* align-content: center;    */
+    justify-content: space-around;
+    width: 55%;
+    /* align-text: center;    */
 }
 
 #start-button:hover {
     box-shadow: 2px 2px #86b9e9;
     font-weight: bolder;
+}
 
+.time {
+    font-size: 1em;
+    float: right;
 }

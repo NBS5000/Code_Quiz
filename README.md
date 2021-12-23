@@ -1,28 +1,18 @@
-# Horiseon Refactor
+# Code Quiz
 
 ## Description
 
-Task: To refactor existing website code in order to improve user accessiblity.
+Task: To build a timed coding quiz application with multiple-choice questions which will be run in the browser.
 
-Without changing the actions of the existing code, **"clean"** the codebase to:
-- meet accessibility standards ie. semantic HTML
-- ensure code sustainability ie. relevant commenting, consolidated CSS and working Links
-
-By following and meeting accessiblity standards, the refactored website will be:
-- search engine optimised ie. rank higher
-- accessible to people with disabilities (thereby avoiding possible litigation)
+The purpose of this task is to familiarise the user with  a typical coding assessment which includes both multiple-choice questions and interactive coding challenges.
 #
 ## What I learned
 During the completion of this task, I learned:
-- How to compose a README file using Markdown
-- How to add a screenshot to the README file
-- How the 'scan' element works
-- How the 'a' element links work
-- About Descendant Selectors
+- 
 #
 ## Steps Taken
 
-- #### Step 1 - Create draft README content
+- #### Step 1 - Create html, css, js, README files
 
 - #### Step 2 - HTML Initial Review
         Working from the top down, looked for obvious issues. Examples:
