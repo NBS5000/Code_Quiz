@@ -16,9 +16,9 @@
 //when game is over, save initials and score
 
  //declare and create variables
+  var body = document.body;
   var header = document.querySelector("header");
   var mainHeading = document.querySelector(".invite-h1");
-  var body = document.body;
   var container = document.createElement("div");
   var startButton = document.createElement("button");
   var questionDisplay = document.createElement("h1");
@@ -50,7 +50,7 @@
   container.appendChild(invitep);
   container.appendChild(startButton);
 
-
+  
   invitep.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalise your score time by ten seconds!"
 
   reset.setAttribute("style", "display: none");
@@ -61,7 +61,11 @@
   startButton.setAttribute("style", "background-color: #a3f1ee; color: rgb(37,37,3); border-radius: 20px; width: 20vh; font-size: 1.4em; padding: 2vh; margin-top: 4vh");
 
 
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", function(event) {
+  event.stopPropagation();
+
+  startQuiz();
+});
 
 
 function startQuiz() {
@@ -77,21 +81,7 @@ function startQuiz() {
   //syle newly created variables
   multipleChoice.setAttribute("style", "display: flex;");
 
-  // start timer and set else/if rules
-    var timeLeft = 15;
-    var timerInterval = setInterval(function() {
-      if (timeLeft > 1) {
-        timerDisplay.innerHTML = timeLeft + " seconds remaining";
-        timeLeft--;
-      } else if (timeLeft === 1) {
-          timerDisplay.innerHTML = timeLeft + " second remaining";
-          timeLeft--;
-      } else {
-            clearInterval(timerInterval);
-            timerDisplay.innerHTML = "Time is up. The assessment is now concluded.";
-      }
-    }, 1000);//end set Interval
-
+  
     //create object to store question and multiple choices
     var QandA = {
       question: ["Commonly used data types DO NOT include:", "String values must be enclosed within ______ when being assigned to variables.",
@@ -146,6 +136,30 @@ function startQuiz() {
         }
 
     }    
+
+        // start timer and set else/if rules
+        var timeLeft = 15;
+        var timerInterval = setInterval(function() {
+          if (timeLeft > 1) {
+            timerDisplay.innerHTML = timeLeft + " seconds remaining";
+            timeLeft--;
+          } else if (timeLeft === 1) {
+              timerDisplay.innerHTML = timeLeft + " second remaining";
+              timeLeft--;
+          } else {
+                clearInterval(timerInterval);
+                timerDisplay.innerHTML = "Time is up. The assessment is now concluded.";
+          }
+        }, 1000);//end set Interval
+
+
+  //   if (lowercase) {
+  //   selectedChars = selectedChars.concat(lowercaseRange);
+  //   var index = Math.floor(Math.random() * lowercaseRange.length);
+  //   var forceLower = lowercaseRange[index];
+  //   forcedChars++
+  //   newPassword += forceLower;
+  // }
             
     // add event listener to the multiple choice options
     container.addEventListener("click", function(event) {
