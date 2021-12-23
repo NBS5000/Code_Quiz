@@ -14,7 +14,7 @@
     margin-top: 20vh;
 }
 
-h1 {
+#heading {
     font-size: 50px;
     font-weight: bold;
     justify-content: center;
@@ -35,7 +35,13 @@ h1 {
     /* align-self: center; */
 }
 
-p {
+#start-button:hover {
+    box-shadow: 2px 2px #86b9e9;
+    font-weight: bolder;
+}
+
+
+#invite {
     padding: 0.25vh;
     font-size: 1.25em;
     justify-content: space-around;
@@ -43,12 +49,12 @@ p {
     /* align-text: center;    */
 }
 
-#start-button:hover {
-    box-shadow: 2px 2px #86b9e9;
-    font-weight: bolder;
+.timer {
+    font-size: 1em;
+    float: inline-start;
 }
 
-.time {
-    font-size: 1em;
+.results {
     float: right;
+    padding: 3em;
 }
