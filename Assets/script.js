@@ -15,21 +15,72 @@
 //when all questions answered or close is 0 game is over
 //when game is over, save initials and score
 
-var startButton = document.getElementById("start-button");
-var timerDisplay = document.querySelector(".timer-text");
-var correct = localStorage.getItem("correct");
-var incorrect = localStorage.getItem("incorrect");
-var resetButton = document.querySelector(".reset-button");
-var choices = document.querySelector(".multiple-choices");
-var displayQuestion = document.querySelectorAll(".currentQuestion");
-var finalScore = document.getElementById("finalScore");
+ //declare and create variables
+  var header = document.querySelector("header");
+  var mainHeading = document.querySelector(".invite-h1");
+  var body = document.body;
+  var container = document.createElement("div");
+  var startButton = document.createElement("button");
+  var questionDisplay = document.createElement("h1");
+  var multipleChoice = document.createElement("ol");
+  var li1 = document.createElement("li")
+  var li2 = document.createElement("li");
+  var li3 = document.createElement("li");
+  var li4 = document.createElement("li");
+  var timerDisplay = document.createElement("div");
+  var finalScore = document.createElement("div");
+  var reset = document.createElement("button");
+  var back = document.createElement("button");
+  var invitep = document.createElement("p");
 
-startButton.addEventListener("click", questionsLoop);
+// var correct = localStorage.getItem("correct");
+// var incorrect = localStorage.getItem("incorrect");
+//append newly created variables to HTML
+  header.appendChild(questionDisplay);
+  body.appendChild(container);
+  container.appendChild(multipleChoice);
+  multipleChoice.appendChild(li1);
+  multipleChoice.appendChild(li2);
+  multipleChoice.appendChild(li3);
+  multipleChoice.appendChild(li4);
+  body.appendChild(timerDisplay);
+  body.appendChild(finalScore);
+  body.appendChild(reset);
+  body.appendChild(back);
+  container.appendChild(invitep);
+  container.appendChild(startButton);
 
 
-function questionsLoop() {
+  invitep.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalise your score time by ten seconds!"
+
+  reset.setAttribute("style", "display: none");
+  back.setAttribute("style", "display: none");
+  container.setAttribute("style", "display: flex; flex-direction: column; justify-content: center");
+  invitep.setAttribute("style", "dislay: flex; justify-content: space-around; padding-left: 12em; padding-right:12em; margin-left: 15em; margin-right: 15em");
+  startButton.textContent = "Start Quiz";
+  startButton.setAttribute("style", "background-color: #a3f1ee; color: rgb(37,37,3); border-radius: 20px; width: 20vh; font-size: 1.4em; padding: 2vh; margin-top: 4vh");
+
+
+startButton.addEventListener("click", startQuiz);
+
+
+function startQuiz() {
+
+  // reset.setAttribute("style", "display: none");
+  // back.setAttribute("style", "display: none");
+  // startButton.setAttribute("style", "display: none");
+  timerDisplay.setAttribute("style", "justify-self: flex-end");
+  mainHeading.setAttribute("style", "display: none");
+  invitep.textContent = "  ";
+  startButton.setAttribute("style", "display: none");
 
   // start timer and set else/if rules
+
+
+
+  //syle newly created variables
+  multipleChoice.setAttribute("style", "display: flex;");
+
     var timeLeft = 10;
     var timerInterval = setInterval(function() {
       if (timeLeft > 1) {
@@ -55,37 +106,74 @@ function questionsLoop() {
       option3: ["numbers", "parentheses", "square brackets", "booleans", "for loops"],
       };
     
-    // create variable to keep count
+    // create count variable
     var score = 0;
-    
-     // start questions
-    for (var i = 0; i < QandA.question.length; i++) {
-      var currentQuestion = QandA.question[i];
-      displayQuestion.textContent = currentQuestion;
-      property.getElementById("opt1").innerHTML = QandA.answer[i];
-      property.getElementById("opt2").innerHTML = QandA.option1[i];
-      property.getElementById("opt3").innerHTML = QandA.option2[i];
-      property.getElementById("opt4").innerHTML = QandA.option3[i];
-      // choices.children[2].textContent = QandA.option1[i];
-      // choices.children[3].textContent = QandA.option2[i];
-      // choices.children[4].textContent = QandA.option3[i];
-      
-        // add event listener to the multiple choice options
-        choices.addEventListener("click", function(event) {
-          var element = event.target;
-       //check if answer is correct
-          if (element.matches(this.answer)) {
-            score++;
-            localStorage.setItem("score", score);
-            choices.setAttribute("style", "border-bottom: 2px red");
-            var div = document.createElement("div");
-            div.textContent = "CORRECT";
-            choices.appendChild(div);
-          } else {
-            return;
-          }  //else return
-        });  //end event listener
-      };   //end for loop
-};//end loop
- 
+    var randomQuestion = QandA.question.length;
+    var randomLi1 = QandA.answer.length;
+    var randomLi2 = QandA.option1.length;
+    var randomLi3 = QandA.option2.length;
+    var randomLi4 = QandA.option3.length;
 
+    console.log(randomQuestion + " " +  randomLi1 + " " +  randomLi2 + " " +  randomLi3 + " " + randomLi4);
+
+    // start questions
+    for (var i = 0; i <randomQuestion.length; i++) {
+
+        var index = QandA.question[i];
+        randomQuestion--;
+        questionDisplay.textContent = QandA.question[index];
+      
+        if (i < randomLi1.length) {
+          var index = QandA.answer[i];
+          randomLi1--;
+          li1.textContent = QandA.answer[index];
+        }
+        if (i < randomLi2.length) {
+          var index = QandA.option1[i];
+          randomLi2--;
+          li2.textContent = QandA.option1[index];
+      }
+        if (i < randomLi3.length) {
+          var index = QandA.option2[i];
+          randomLi3--;
+          li3.textContent = QandA.option2[index];
+    }
+        if (i < randomLi4.length) {
+          var index = QandA.option3[i];
+          random--;
+          li3.textContent = QandA.option3[index];
+    }
+
+    }    
+            
+            
+            
+            
+            // var indexOpt1 = QandA.option1[i];
+        //   opt1.textContent = QandA.option1[indexOpt1];
+        // var indexOpt2 = QandA.option2[i];
+        //   opt1.textContent = QandA.option2[indexOpt2];
+        // var indexOpt3 = QandA.option3[i];
+        //   opt1.textContent = QandA.option3[indexOpt2];
+        // var indexOpt4 = QandA.option4[i];
+        //   opt1.textContent = QandA.option3[indexOpt3];
+    //   } else {
+    //     return;  
+    // }
+
+    // add event listener to the multiple choice options
+//     choices.addEventListener("click", function(event) {
+//       var element = event.target;
+//       //check if answer is correct
+//           if (element.matches(this.answer)) {
+//             score++;
+//             localStorage.setItem("correct", correct);
+//             choices.setAttribute("style", "border-bottom: 2px red");
+//             score.textContent = "CORRECT";
+//             score.setAttribute("Style", "font-size: 3em, opacity: 50%")
+//           } else {
+//             return;
+//           }  //else return
+//         });  //end event listener
+//       };   //end for loop
+}; //end loop
