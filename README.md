@@ -4,7 +4,7 @@
 
 Task: To build a timed coding quiz application with multiple-choice questions which will be run in the browser.
 
-The purpose of this task is to familiarise the user with  a typical coding assessment which includes both multiple-choice questions and interactive coding challenges.
+The purpose of this task is to familiarise the user with  a typical coding assessment which will include multiple-choice questions.
 #
 ## What I learned
 During the completion of this task, I learned:
@@ -14,33 +14,23 @@ During the completion of this task, I learned:
 
 - #### Step 1 - Create html, css, js, README files
 
-- #### Step 2 - HTML Initial Review
-        Working from the top down, looked for obvious issues. Examples:
-            - Title not descriptive
-            - No header element
-            - Uncessary spaces
-            - Images without alt tags
-            - Footer header not html semantic
-            - Excessive use of div elements
+- #### Step 2 - 
 
-- #### Step 3 - CSS Initial Review
-        Working from the top down, looking for obvious issues. Examples:
-            - No comments for the different types of selectors
-            - Excessive, Repetative and Redundant Class Selectors
+- #### Step 3 - 
 
-- #### Step 4 - HTML & CSS Indepth Review and Changes - Header
+- #### Step 4 - 
 
-- #### Step 5 - HTML & CSS Indepth Review and Changes - Main Content
+- #### Step 5 -
 
-- #### Step 6 - HTML & CSS Indepth Review and Changes - SideBar
+- #### Step 6 - 
 
-- #### Step 7 - HTML & CSS Indepth Review and Changes - Footer
+- #### Step 7 -
 
-- #### Step 8 - HTML & CSS Final Review and Changes - Spacing and Commenting
+- #### Step 8 - 
 
-- #### Step 9 - Update and complete README content
+- #### Step 9 - 
 
 #
-[Click here to view Horiseon Website](https://michelledwoods1.github.io/Horiseon-Refactoring/)
+[Click here to view Horiseon Website]()
 #
-![Screenshot of Webiste url](assets/images/screenshot.png)
+![Screenshot of Webiste url]()
