@@ -8,29 +8,28 @@ The purpose of this task is to familiarise the user with  a typical coding asses
 #
 ## What I learned
 During the completion of this task, I learned:
-- 
+- you must declare a variable in javascript to hold both existing and current elements
+- classes can be added in javascript
+- new page created by styling other elements to display: none
+
 #
 ## Steps Taken
 
 - #### Step 1 - Create html, css, js, README files
 
-- #### Step 2 - 
+- #### Step 2 - create variables and new elements
 
-- #### Step 3 - 
+- #### Step 3 - create timer 
 
-- #### Step 4 - 
+- #### Step 4 - create function to display questions and multiple choices
 
-- #### Step 5 -
+- #### Step 5 - add event listeners
 
-- #### Step 6 - 
+- #### Step 6 - formatting
 
-- #### Step 7 -
-
-- #### Step 8 - 
-
-- #### Step 9 - 
+- #### Step 7 - local storage
 
 #
-[Click here to view Horiseon Website]()
+[Click here to view Code_Quiz Website](https://michelledwoods1.github.io/Code_Quiz/)
 #
-![Screenshot of Webiste url]()
+![Screenshot of Webiste url](assets/screenshot.png)

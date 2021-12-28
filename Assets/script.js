@@ -16,6 +16,7 @@
 //****section 1****/
 
 // declare variables for existing element in firstPage section
+
 var firstPage = document.querySelector(".firstPage");
 
 // declare variables for new elements in firstPage section & append
@@ -114,34 +115,6 @@ function startQuiz() {
   olEl.append(choice1, choice2, choice3, choice4);
 
 
-  // var questions = [
-  //   {
-  //     title: "How are you?",
-  //     choices: [
-  //       {
-  //         title: "Good",
-  //         isAnswer: true,
-  //       },
-  //       {
-  //         title: "Bad",
-  //         isAnswer: false,
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     title: "How are doin?",
-  //     choices: [
-  //       {
-  //         title: "bloody good",
-  //         isAnswer: true,
-  //       },
-  //       {
-  //         title: "Bad",
-  //         isAnswer: false,
-  //       }
-  //     ]
-  //   },
-  // ]
 
   // set arrays for all questions and multiple choices
   var questions = ["Commonly used data types DO NOT include: ", "String values must be enclosed within ______ when being assigned to variables.",
@@ -152,21 +125,11 @@ function startQuiz() {
   
   var choices2 = ["strings", "commas", "quotes", "numbers and strings","JavaScript"];
   
-  var choices3 = ["booleans", "curly brackets", "curly brackets", "other arrays","termina/bash"];
+  var choices3 = ["booleans", "curly brackets", "curly brackets", "other arrays","terminal/bash"];
   
   var choices4 = ["numbers", "parentheses", "square brackets", "booleans", "for loops"];
 
-  // set count variables
-  var questionCount = questions.length;
-  var choicesCount = questionCount-1;
-  console.log(questionCount);
-  console.log(choicesCount);
-
-
-  // [4,3,1,2,0]
-  // shuffle
-
-  
+    
   // shuffle the indices -- the order of the qs that we want to show to the user
   var questionIndices = shuffle(Array.from(questions.keys()));
 
@@ -214,11 +177,6 @@ function startQuiz() {
     choice4.setAttribute('data-answer', choices[3].isCorrect);
   
   
-    // attach even
-    
-    // random
-  
-    // get the ans
   }
 
   renderQuestion(questionIndices[currentQuestion]);
@@ -228,8 +186,6 @@ function startQuiz() {
 
     aTag.addEventListener("click", function(event) {
       var element = event.target;
-      console.log(element);
-
     
       if (!element.matches("li")) {
         return;
@@ -256,11 +212,11 @@ function startQuiz() {
         return FinalScoreDisplay();
       }
 
-      // no delay
+      // delay
       setTimeout(function(){
         result.textContent =""
         renderQuestion(questionIndices[currentQuestion]);
-      }, 1000);
+      }, 600);
 
   
        
@@ -270,12 +226,11 @@ function startQuiz() {
         var timeLeft = 60;
         var timerInterval = setInterval(function() {
           timeLeft--;
+     
 
-      
-
-          if (timeLeft <= 0) {
-            displayTimer.textContent = timeLeft;
+          if (timeLeft <= 0 && currentQuestion !== questionIndices.length ) {
             clearInterval(timerInterval);
+            localStorage.setItem("time", "0");
             olEl.setAttribute("style", "display: none");
             questionh2.textContent = "Time is up. The assessment is now concluded.";
             result.setAttribute("style", "display: none");
@@ -285,15 +240,9 @@ function startQuiz() {
             displayTimer.textContent = "Time:  " + timeLeft;
           }
 
-        }, 1000);//end set Interval
+        }, 1000);
   
-    
-        
-
- 
-    // create click event on aTag
-
-   
+  
 
     // declare variable for existing element in finalScore section
     var finalScore = document.querySelector(".finalScore");
@@ -344,19 +293,9 @@ function startQuiz() {
 
 
       localStorage.setItem("lastUser", finalScoreInput.value);
-      // var existingHighscores = JSON.parse(localStorage.getItem('highscores')) || [];
-
-      // existingHighscores.push({
-      //   inital: finalScoreInput.value,
-      //   score: timeLeft,
-      // });
-      // localStorage.setItem('highscores', JSON.stringify(existingHighscores))
-      
-
-
       highScoresDisplay();
     });
-
+    // ****section 4****
     
     // declare variable for existing element in highScores section
     var highScores = document.querySelector(".highScores");
@@ -392,10 +331,51 @@ function startQuiz() {
     highScoresform.append(goBacksubmit, clearHighScoressubmit);
 
     function highScoresDisplay() {
+      finalScore.setAttribute("style", "display: none");
       var time = localStorage.getItem("time");
       var lastUser = localStorage.getItem("lastUser");
 
-      // var highscores = JSON.parse(localStorage.getItem("highscores")) || []
+ 
+
+      if (!time || !lastUser) {
+        return;
+      } else { 
+        highScoresh2.textContent = "Highscores";
+        highScoresdiv.textContent = localStorage.getItem("lastUser") + " - " + localStorage.getItem("time");
+      }
+
+      
+
+     
+      clearHighScoressubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 160px; margin-left: 10px");
+      clearHighScoressubmit.addEventListener('click', function(event){
+        event.preventDefault();
+        localStorage.setItem("lastUser", "");
+        localStorage.setItem("time", "");
+      });
+
+      goBacksubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 80px");
+
+     
+ 
+
+    }
+
+      // var existingHighscores = JSON.parse(localStorage.getItem('highscores')) || [];
+
+      // existingHighscores.push({
+      //   inital: finalScoreInput.value,
+      //   score: timeLeft,
+      // });
+      // localStorage.setItem('highscores', JSON.stringify(existingHighscores))
+      
+
+
+   
+
+} //end of startQuiz function
+
+     // var highscores = JSON.parse(localStorage.getItem("highscores")) || []
 
       // for (var index = 0; index < highscores.length; index++) {
       //   var highscore = highscores[index];
@@ -411,143 +391,38 @@ function startQuiz() {
         
       // }
       
-
-      if (!time || !lastUser) {
-        return;
-      } else { 
-        highScoresh2.textContent = "Highscores";
-        highScoresdiv.textContent = localStorage.getItem("lastUser") + " - " + localStorage.getItem("time");
-      }
-
-      finalScore.setAttribute("style", "display: none");
-      goBacksubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 80px");
-      clearHighScoressubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 160px; margin-left: 10px");
-
-      clearHighScoressubmit.addEventListener('click', function(event){
-        event.preventDefault();
-        localStorage.setItem("highscores", "");
-      });
-      
-
-    }
-
-
-
-
-
-
-
-    // create random postion for multiple choices
-    var postioning = ["1", "2","3","4"]
-    var qCount = questions.length;
-
-  
-
-  
-
-    
-
-} //end of startQuiz function
-
-
-  // finalScore.setAttribute("style", "display: none");
-var finalScore = document.querySelector("finalScore");
-var highScores = document.querySelector("#highScores");
-  
- 
-  // var correctAnswer = document.createElement("button")
-  // var choice2 = document.createElement("button");
-  // var choice3 = document.createElement("button");
-  // var choice4 = document.createElement("button");
-  
-  // multipleChoice.appendChild(correctAnswer);
-  // multipleChoice.appendChild(choice2);
-  // // multipleChoice.appendChild(choice3);
-  // // multipleChoice.appendChild(choice4);
-  
-  // multipleChoice.classList.add("container");
-  // multipleChoice.setAttribute("style", "display: flex; flex-direction: column; justify-content: flex-start");
-  // // reset.setAttribute("style", "display: none");
-  // // back.setAttribute("style", "display: none");
-  // // startButton.setAttribute("style", "display: none");
-  // timerDisplay.setAttribute("style", "justify-self: flex-end");
-  // mainHeading.setAttribute("style", "display: none");
-  // para.textContent = "  ";
-  // startButton.setAttribute("style", "display: none");
-  // multipleChoice.setAttribute("style", "class: container; display: flex; flex-direction: column; justify-content: center");
-
-
-  // //syle newly created variables
-  // multipleChoice.setAttribute("style", "display: flex; justify-contents: center");
-
   
   
-    
-  //   // create count variable
-  //   var score = 0;
-  //   var correct = 0;
-  //   var incorrect = 0;
-  //   var randomQ = qandA.question.length;
-  //   var randomA1 = qandA.correctAnswer.length;
-  //   var randomA2 = qandA.choice2.length;
-  //   var randomA3 = qandA.choice3.length;
-  //   var randomA4 = qandA.choice4.length;
-
-  //   console.log(randomQ + " " +  randomA1 + " " +  randomA2 + " " +  randomA3 + " " + randomA4);
-
-  //   // start questions
-  //   for (var i = 0; i <= randomQ; i++) {
-  //        var index = qandA.question[i];
-  //       currentQuestion.innerHTML = qandA.question[i];
-  //       randomQ--;
-      
-  //       if (i <= randomA1) {
-  //         var index = qandA.correctAnswer[i];
-  //         correctAnswer.textContent = qandA.correctAnswer[i];
-  //         randomA1--;
+  // var questions = [
+  //   {
+  //     title: "How are you?",
+  //     choices: [
+  //       {
+  //         title: "Good",
+  //         isAnswer: true,
+  //       },
+  //       {
+  //         title: "Bad",
+  //         isAnswer: false,
   //       }
-  //       if (i <= randomA2) {
-  //         var index = qandA.choice2[i];
-  //          choice2.textContent = qandA.choice2[i];
-  //          randomA2--;
-  //     }
-  //       if (i <= randomA3) {
-  //         var index = qandA.choice3[i];
-  //         choice3.textContent = qandA.choice3[i];
-  //         randomA3--;
-  //   }
-  //       if (i <= randomA4) {
-  //         var index = qandA.choice4[i];
-  //         choice4.textContent = qandA.choice4[i];
-  //         randomA4--;
+  //     ]
+  //   },
+  //   {
+  //     title: "How are doin?",
+  //     choices: [
+  //       {
+  //         title: "bloody good",
+  //         isAnswer: true,
+  //       },
+  //       {
+  //         title: "Bad",
+  //         isAnswer: false,
   //       }
-  //       // add event listener to the multiple choice options
-  //       multipleChoice.addEventListener("click", function(event) {
-  //         event.preventDefault(multipleChoice);
-
-  //       var element = event.target;
-  //         //check if answer is correct
-  //         if (element.matches(qandA.correctAnswer)) {
-  //           score++;
-  //           localStorage.setItem("correct", correct);
-  //           correct++;
-  //           multipleChoice.setAttribute("style", "border-bottom: 2px red");
-  //           multipleChoice.textContent = "CORRECT";
-  //           multipleChoice.setAttribute("Style", "font-size: 3em, opacity: 50%")
-  //         } else {
-  //           localStorage.setItem("incorrect", incorrect);
-  //           incorrect--;
-  //           multipleChoice.setAttribute("style", "border-bottom: 2px red");
-  //           multipleChoice.textContent = "INCORRECT";
-  //           multipleChoice.setAttribute("Style", "font-size: 3em, opacity: 50%")
-  //         }
-
-  //         });  //end event listener
-  //       }    
-
-  //     
-
-
+  //     ]
+  //   },
+  // ]
+    
+  
 
 
 //time to start when button is clicked
