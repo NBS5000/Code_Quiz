@@ -37,6 +37,23 @@ firstPage.append(firstPageh1, firstPagep, firstPagebtn);
 firstPagebtn.addEventListener("click", startQuiz);
 
 
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 //****section 2****/
 
 function startQuiz() {
@@ -96,62 +113,167 @@ function startQuiz() {
   aTag.append(olEl);
   olEl.append(choice1, choice2, choice3, choice4);
 
+
+  // var questions = [
+  //   {
+  //     title: "How are you?",
+  //     choices: [
+  //       {
+  //         title: "Good",
+  //         isAnswer: true,
+  //       },
+  //       {
+  //         title: "Bad",
+  //         isAnswer: false,
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     title: "How are doin?",
+  //     choices: [
+  //       {
+  //         title: "bloody good",
+  //         isAnswer: true,
+  //       },
+  //       {
+  //         title: "Bad",
+  //         isAnswer: false,
+  //       }
+  //     ]
+  //   },
+  // ]
+
   // set arrays for all questions and multiple choices
-  var question = ["Commonly used data types DO NOT include: ", "String values must be enclosed within ______ when being assigned to variables.",
+  var questions = ["Commonly used data types DO NOT include: ", "String values must be enclosed within ______ when being assigned to variables.",
   "The condition is an if/else statement if enclosed within ______.", "Arrays in JavaScript can be used to store ______.",
   "A very useful tool used during development and debugging for printing content to the debugger is:"];
   
-  var correctAnswer = ["alerts", "quotes", "parentheses", "all of the above", "console log"];
+  var correctAnswers = ["alerts", "quotes", "parentheses", "all of the above", "console log"];
   
-  var choice2 = ["strings", "commas", "quotes", "numbers and strings","JavaScript"];
+  var choices2 = ["strings", "commas", "quotes", "numbers and strings","JavaScript"];
   
-  var choice3 = ["booleans", "curly brackets", "curly brackets", "other arrays","termina/bash"];
+  var choices3 = ["booleans", "curly brackets", "curly brackets", "other arrays","termina/bash"];
   
-  var choice4 = ["numbers", "parentheses", "square brackets", "booleans", "for loops"];
+  var choices4 = ["numbers", "parentheses", "square brackets", "booleans", "for loops"];
 
   // set count variables
-  var questionCount = question.length;
+  var questionCount = questions.length;
   var choicesCount = questionCount-1;
   console.log(questionCount);
   console.log(choicesCount);
 
 
-// create object to store each question and multiple choice
-  // var currentQuestion = {
-  //   q: question[i],
-  //   cA: correctAnswer[i],
-  //   c2: choice2[i],
-  //   c3: choice3[i],
-  //   c4: choice4 [i]
-  // }
+  // [4,3,1,2,0]
+  // shuffle
 
-  // create for loop to ask all questions
-    for (var i = 0; i < qCount; i++) {
-      qCount--;
-      var index = Math.floor(Math.random() * choicesCount);
-      var qbucket = question[index];
-      questionh2 = questionh2 += qbucket;
-      var cAbucket = correctAnswer[index];
-      choice1 = choice1 += cAbucket;
-      var c2bucket = choice2[index];
-      choice2 = choice2 += c2bucket;
-      var c3bucket = choice3[index];
-      choice3 = choice3 += c3bucket;
-      var c4bucket = choice4[index];
-      choice4 = choice4 += c4bucket;
-      console.log(qCount);
-      console.log(questionh2);
-      console.log(choice1);
-      console.log(choice2);
-      console.log(choice3);
-      console.log(choice4);
-    }
+  
+  // shuffle the indices -- the order of the qs that we want to show to the user
+  var questionIndices = shuffle(Array.from(questions.keys()));
+
+
+  var currentQuestion = 0;
+
+  function renderQuestion(questionIndex){
+
+    // get the qs
+    // get the choices
+    questionh2.textContent = questions[questionIndex];
+  
+    // randomise the choice order, so 1st option is not always correct
+  
+    var choices = shuffle([
+      {
+        title: correctAnswers[questionIndex],
+        isCorrect: true
+      },
+      {
+        title: choices2[questionIndex],
+        isCorrect: false
+      },
+      {
+        title: choices3[questionIndex],
+        isCorrect: false
+      },
+      {
+        title: choices4[questionIndex],
+        isCorrect: false
+      },
+    ]);
+  
+    choice1.textContent = choices[0].title;
+    choice1.setAttribute('data-answer', choices[0].isCorrect);
+  
+    choice2.textContent = choices[1].title;
+    choice2.setAttribute('data-answer', choices[1].isCorrect);
+    
+  
+    choice3.textContent = choices[2].title;
+    choice3.setAttribute('data-answer', choices[2].isCorrect);
+  
+    choice4.textContent = choices[3].title;
+    choice4.setAttribute('data-answer', choices[3].isCorrect);
+  
+  
+    // attach even
+    
+    // random
+  
+    // get the ans
+  }
+
+  renderQuestion(questionIndices[currentQuestion]);
+
+  
+   
+
+    aTag.addEventListener("click", function(event) {
+      var element = event.target;
+      console.log(element);
+
+    
+      if (!element.matches("li")) {
+        return;
+      }
+      
+      // user clicked on a choice
+      currentQuestion++;
+      var isCorrect = element.getAttribute('data-answer') === 'true';
+      if(isCorrect){
+        // display correct at the  bottom
+        result.textContent = "Correct!";
+        localStorage.setItem("time", timeLeft);
+
+      }else{
+
+        timeLeft = timeLeft - 10;
+        displayTimer.textContent = timeLeft;
+        localStorage.setItem("time", timeLeft);
+        result.textContent = "Wrong!";
+        aTag.setAttribute("style", "border-bottom: 2px solid rgb(109, 107, 107");
+        
+      }
+      if(currentQuestion >= questionIndices.length){
+        return FinalScoreDisplay();
+      }
+
+      // no delay
+      setTimeout(function(){
+        result.textContent =""
+        renderQuestion(questionIndices[currentQuestion]);
+      }, 1000);
+
+  
+       
+    });
 
   // start timer and set else/if rules
         var timeLeft = 60;
         var timerInterval = setInterval(function() {
-          timeLeft--
-          if (timeLeft === 0 || qCount === 0) {
+          timeLeft--;
+
+      
+
+          if (timeLeft <= 0) {
             displayTimer.textContent = timeLeft;
             clearInterval(timerInterval);
             olEl.setAttribute("style", "display: none");
@@ -171,32 +293,12 @@ function startQuiz() {
  
     // create click event on aTag
 
-    aTag.addEventListener("click", function(event) {
-      var element = event.target;
-      console.log(element);
-
-    
-      if (element.matches("li")) {
-        var answer = element.textContent;
-        console.log(answer);
-      }
-        if (correctAnswer.includes(answer)) {
-          result.textContent = "Correct!";
-          localStorage.setItem("time", timeLeft);
-        } else {
-          timeLeft = timeLeft - 10;
-          localStorage.setItem("time", timeLeft);
-          result.textContent = "Wrong!";
-          aTag.setAttribute("style", "border-bottom: 2px solid rgb(109, 107, 107");
-          FinalScoreDisplay();
-      }
-       
-    });
+   
 
     // declare variable for existing element in finalScore section
     var finalScore = document.querySelector(".finalScore");
+    finalScore.setAttribute('style', "display:none");
     finalScore.setAttribute("class", "finalScore dflex-c");
-    finalScore.setAttribute("style", "margin-left: 120px");
 
     // declare variables for new elements in finalScore section & append
     var finalScoreh2 = document.createElement("h2");
@@ -231,6 +333,7 @@ function startQuiz() {
 
     function FinalScoreDisplay() {
       multipleChoice.setAttribute("style", "display: none");
+      finalScore.setAttribute("style", "display: block; margin-left: 120px");
       finalScoreh2.textContent = "All done!"
       finalScoreCount.textContent = "Your final score is " + localStorage.getItem("time");
   
@@ -238,7 +341,19 @@ function startQuiz() {
 
     finalScoreSubmit.addEventListener("click", function(event) {
       event.preventDefault();
+
+
       localStorage.setItem("lastUser", finalScoreInput.value);
+      // var existingHighscores = JSON.parse(localStorage.getItem('highscores')) || [];
+
+      // existingHighscores.push({
+      //   inital: finalScoreInput.value,
+      //   score: timeLeft,
+      // });
+      // localStorage.setItem('highscores', JSON.stringify(existingHighscores))
+      
+
+
       highScoresDisplay();
     });
 
@@ -270,6 +385,8 @@ function startQuiz() {
     clearHighScoressubmit.setAttribute("value", "Clear Highscores");
     clearHighScoressubmit.setAttribute("style", "display: none");
 
+    
+
     highScores.append(highScoresh2, highScoresdiv, highScoresform);
 
     highScoresform.append(goBacksubmit, clearHighScoressubmit);
@@ -277,6 +394,23 @@ function startQuiz() {
     function highScoresDisplay() {
       var time = localStorage.getItem("time");
       var lastUser = localStorage.getItem("lastUser");
+
+      // var highscores = JSON.parse(localStorage.getItem("highscores")) || []
+
+      // for (var index = 0; index < highscores.length; index++) {
+      //   var highscore = highscores[index];
+
+        // create new li
+
+        // var li = document.createElement('li');
+
+
+        // put t in hs div
+
+
+        
+      // }
+      
 
       if (!time || !lastUser) {
         return;
@@ -289,7 +423,10 @@ function startQuiz() {
       goBacksubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 80px");
       clearHighScoressubmit.setAttribute("style", "marign: 0; background: #a3f1ee; color: rgb (37, 37, 37); width: 160px; margin-left: 10px");
 
-      
+      clearHighScoressubmit.addEventListener('click', function(event){
+        event.preventDefault();
+        localStorage.setItem("highscores", "");
+      });
       
 
     }
@@ -302,7 +439,7 @@ function startQuiz() {
 
     // create random postion for multiple choices
     var postioning = ["1", "2","3","4"]
-    var qCount = question.length;
+    var qCount = questions.length;
 
   
 
